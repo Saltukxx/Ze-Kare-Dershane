@@ -5,6 +5,18 @@
     document.documentElement.classList.add('js-ready');
 
     const navbar = document.getElementById('navbar');
+
+    function syncNavHeight() {
+        if (!navbar) {
+            return;
+        }
+        document.documentElement.style.setProperty('--nav-height', navbar.offsetHeight + 'px');
+    }
+
+    syncNavHeight();
+    window.addEventListener('resize', syncNavHeight, { passive: true });
+    window.addEventListener('load', syncNavHeight);
+
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
     const yearEl = document.getElementById('year');
@@ -29,6 +41,7 @@
         navToggle.classList.toggle('open', isOpen);
         navToggle.setAttribute('aria-expanded', String(isOpen));
         document.body.classList.toggle('menu-open', isOpen);
+        syncNavHeight();
     });
 
     navAnchors.forEach(function (link) {
