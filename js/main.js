@@ -1,6 +1,9 @@
 (function () {
     'use strict';
 
+    document.documentElement.classList.remove('no-js');
+    document.documentElement.classList.add('js-ready');
+
     const navbar = document.getElementById('navbar');
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
