@@ -21,12 +21,14 @@
         navLinks.classList.remove('open');
         navToggle.classList.remove('open');
         navToggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
     }
 
     navToggle.addEventListener('click', function () {
         const isOpen = navLinks.classList.toggle('open');
         navToggle.classList.toggle('open', isOpen);
         navToggle.setAttribute('aria-expanded', String(isOpen));
+        document.body.classList.toggle('menu-open', isOpen);
     });
 
     navAnchors.forEach(function (link) {
