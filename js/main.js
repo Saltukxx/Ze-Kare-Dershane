@@ -19,6 +19,7 @@
 
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
+    const navBackdrop = document.getElementById('navBackdrop');
     const yearEl = document.getElementById('year');
     const fadeElements = document.querySelectorAll('.fade-in');
     const navAnchors = navLinks.querySelectorAll('a');
@@ -34,15 +35,35 @@
         navToggle.classList.remove('open');
         navToggle.setAttribute('aria-expanded', 'false');
         document.body.classList.remove('menu-open');
+        if (navBackdrop) {
+            navBackdrop.classList.remove('visible');
+            navBackdrop.hidden = true;
+        }
+    }
+
+    function openMobileMenu() {
+        navLinks.classList.add('open');
+        navToggle.classList.add('open');
+        navToggle.setAttribute('aria-expanded', 'true');
+        document.body.classList.add('menu-open');
+        if (navBackdrop) {
+            navBackdrop.hidden = false;
+            navBackdrop.classList.add('visible');
+        }
     }
 
     navToggle.addEventListener('click', function () {
-        const isOpen = navLinks.classList.toggle('open');
-        navToggle.classList.toggle('open', isOpen);
-        navToggle.setAttribute('aria-expanded', String(isOpen));
-        document.body.classList.toggle('menu-open', isOpen);
+        if (navLinks.classList.contains('open')) {
+            closeMobileMenu();
+            return;
+        }
+        openMobileMenu();
         syncNavHeight();
     });
+
+    if (navBackdrop) {
+        navBackdrop.addEventListener('click', closeMobileMenu);
+    }
 
     navAnchors.forEach(function (link) {
         link.addEventListener('click', closeMobileMenu);
